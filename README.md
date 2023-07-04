@@ -2,7 +2,7 @@
 Greedy Algorithm 5
 
 
-## 435.Non-overlapping Intervals, 763.Partition Labels 
+## 435.Non-overlapping Intervals, 763.Partition Labels, 56.Merge Intervals
 July 04, 2023  4h
 
 Congratulations!\
@@ -32,10 +32,27 @@ class Solution:
 
 
 ## 763.Partition Labels
+The letter in a interval can only appear in this interval.\
+We define a hash table to record the furthest place one letter lies.
+```python
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        last_occurrence = {}    #store the last place i each character lies
+        for i, ch in enumerate(s):
+            last_occurrence[ch] = i
+        
+        result = []
+        start, end = 0, 0
+        for i, ch in  enumerate(s):
+            end = max(end, last_occurrence[ch])     #keep updating the end of current interval when we loop over
+            if i == end:        #loop until a place where an interval meets requirement
+                result.append(end-start+1)
+                start = i+1     #update the start for the next interval
+
+        return result
+```
 
 
-
-
-## 56. 
-合并区间  hard
+## 56.Merge Intervals
+hard. 
 
