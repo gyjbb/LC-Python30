@@ -7,7 +7,7 @@ July 04, 2023  4h
 
 Congratulations!\
 This is the 30th day for leetcode python study. Today we will learn about the Greedy Algorithm!\
-The challenges today are especially about ~~inserting items according to the ranking and merge intervals of overlapping~~.
+The challenges today are especially about merging and updating intervals.
 
 
 ## 435.Non-overlapping Intervals
@@ -54,5 +54,24 @@ class Solution:
 
 
 ## 56.Merge Intervals
-hard. 
+hard but similar.
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        result = []
+        if len(intervals) == 0:
+            return result
+
+        intervals.sort(key =  lambda  x: x[0])
+
+        result.append(intervals[0])
+
+        for i in range(1, len(intervals)):
+            if result[-1][1] >= intervals[i][0]:    #find a overlapping interval
+                result[-1][1] = max(result[-1][1], intervals[i][1])    #update the right boundary of the last interval stored in result
+            else:
+                result.append(intervals[i])
+
+        return result
+```
 
